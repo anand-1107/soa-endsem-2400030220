@@ -7,17 +7,16 @@ services:
       POSTGRES_USER: anand
       POSTGRES_PASSWORD: "1107"
       POSTGRES_DB: dockertaskdb
-    ports:
-      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - examschedule-network
+    restart: unless-stopped
 
   examschedule-backend:
     image: examschedule-backend:latest
     build:
-      context: .
+      context: ./ExamSchedule
       dockerfile: backend.Dockerfile
     container_name: examschedule-springboot
     environment:
@@ -39,3 +38,4 @@ volumes:
 networks:
   examschedule-network:
     driver: bridge
+
